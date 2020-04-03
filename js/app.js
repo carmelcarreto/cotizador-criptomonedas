@@ -1,4 +1,7 @@
+const cotizador = new API('a2cf05c763b1ca3dc61baf82ec6fc49996c633ebb81ebb2416109d3ad039b129');
 const ui = new Interfaz();
+
+cotizador.obtenerMonedasAPI();
 
 // leer el formulario
 const formulario = document.querySelector('#formulario');
