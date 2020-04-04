@@ -42,7 +42,16 @@ class Interfaz{
 
     //Imprime el resultado de la cotizacion
     mostrarResultado(resultado, moneda, cryto){
+
+        //En caso de un resultado anterior, ocultarlo
+        const resultadoAnterior = document.querySelector('#resultado > div');
+
+        if(resultadoAnterior){
+            resultadoAnterior.remove();
+        }
+
         const datosMoneda = resultado[cryto][moneda];
+        
         //recortar digitos de precio
         let precio = datosMoneda.PRICE.toFixed(2),
         procentaje = datosMoneda.CHANGEPCTDAY.toFixed(2),
@@ -57,10 +66,20 @@ class Interfaz{
                     <p>Variacion último día: % ${procentaje}</p>
                     <p>Última Actualizacion: ${actualizado}</p>
                 </div>
-
             </div>
         `;
-        //Insertar el resultado
-        document.querySelector('#resultado').innerHTML = templateHTML;
+        this.mostrarOcultarSpinner('block');
+        
+        setTimeout(() => {
+            //Insertar el resultado
+            document.querySelector('#resultado').innerHTML = templateHTML;
+            //Ocultar el spinner
+            this.mostrarOcultarSpinner('none');
+        }, 3000);
+    }
+    //Mostrar un spinner de carga al enviar la cotizacion
+    mostrarOcultarSpinner(vista){
+        const spinner = document.querySelector('.contenido-spinner');
+        spinner.style.display = vista;
     }
 }
